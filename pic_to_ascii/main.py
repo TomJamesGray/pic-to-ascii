@@ -1,6 +1,6 @@
 import argparse
 import logging
-
+import PIL.Image
 
 def main(args):
     """
@@ -13,3 +13,33 @@ def main(args):
     parser.add_argument("picture", action="store", type=str)
 
     results = parser.parse_args(args)
+
+    convert(PIL.Image.open(results.picture))
+
+def get_brightness(rgb):
+    #Relative luminance - https://en.wikipedia.org/wiki/Relative_luminance
+    return (0.2126*rgb[0]+0.7152*rgb[1]+0.0722*rgb[2])/255
+
+def convert(img,width=40):
+    """
+    Takes a PIL image object and converts it to ASCII text with a
+    default width of 80 characters
+    """
+    out = []
+    sf = img.width//width
+    img = img.resize((img.width//sf,img.height//sf))
+
+    chars = [" ",",","^","#","$"]
+
+    for y in range(img.height):
+        out.append([])
+        for x in range(img.width):
+            out[-1].append(chars[round(
+                get_brightness(img.getpixel((x,y)))*len(chars))-1])
+
+    print(out)
+    for x in out:
+        for y in x:
+            print(y,end="")
+        print("")
+
