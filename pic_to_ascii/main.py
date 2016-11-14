@@ -20,7 +20,7 @@ def get_brightness(rgb):
     #Relative luminance - https://en.wikipedia.org/wiki/Relative_luminance
     return (0.2126*rgb[0]+0.7152*rgb[1]+0.0722*rgb[2])/255
 
-def convert(img,width=40):
+def convert(img,width=80):
     """
     Takes a PIL image object and converts it to ASCII text with a
     default width of 80 characters
@@ -37,7 +37,6 @@ def convert(img,width=40):
             out[-1].append(chars[round(
                 get_brightness(img.getpixel((x,y)))*len(chars))-1])
 
-    print(out)
     for x in out:
         for y in x:
             print(y,end="")
