@@ -27,7 +27,8 @@ def convert(img,width=80):
     """
     out = []
     sf = img.width//width
-    img = img.resize((img.width//sf,img.height//sf))
+    font_aspect_ratio = 0.5
+    img = img.resize((round(img.width//sf/0.5),img.height//sf))
 
     chars = [" ",",","^","#","$"]
 
