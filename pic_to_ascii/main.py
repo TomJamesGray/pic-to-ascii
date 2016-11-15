@@ -17,7 +17,6 @@ def main(args):
     results = parser.parse_args(args)
 
     convert(PIL.Image.open(results.picture),results.width,results.font_ratio)
-    print(results.font_ratio)
 
 def get_brightness(rgb):
     #Relative luminance - https://en.wikipedia.org/wiki/Relative_luminance
