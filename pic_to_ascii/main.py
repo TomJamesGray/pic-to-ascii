@@ -22,7 +22,7 @@ def main(args):
 
 def get_brightness(rgb):
     #Relative luminance - https://en.wikipedia.org/wiki/Relative_luminance
-    return (0.2126*rgb[0]+0.7152*rgb[1]+0.0722*rgb[2])/255
+    return round((0.2126*rgb[0]+0.7152*rgb[1]+0.0722*rgb[2])/255,5)
 
 def convert(img,width=80,font_aspect_ratio=0.5,invert=False):
     """
@@ -42,8 +42,10 @@ def convert(img,width=80,font_aspect_ratio=0.5,invert=False):
                 lightness = 1-get_brightness(img.getpixel((x,y)))
             else:
                 lightness = get_brightness(img.getpixel((x,y)))
+
             out[-1].append(chars[round(
-                lightness*len(chars))-1])
+                lightness*(len(chars)-1))])
+            
 
     for x in out:
         for y in x:
